@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name }} | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">{{ name }}</a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                {% if skills %}<a href="#skills">Skills</a>{% endif %}
+                {% if experience %}<a href="#experience">Experience</a>{% endif %}
+                {% if projects %}<a href="#projects">Projects</a>{% endif %}
+                {% if education or achievements %}<a href="#education-achievements">Education</a>{% endif %}
+                <a href="#contact">Contact</a>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <div class="hero-background">
+            <div class="blob-1"></div>
+            <div class="blob-2"></div>
+        </div>
+        <div class="hero-container">
+            <h1 class="hero-name">{{ name }}</h1>
+            <p class="hero-headline">{{ headline }}</p>
+            <div class="hero-cta">
+                <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                {% if projects %}
+                <a href="#projects" class="btn btn-secondary">View Work</a>
+                {% endif %}
+            </div>
+            
+            <div class="hero-socials">
+                {% if contact.email %}
+                <a href="mailto:{{ contact.email }}" title="Email">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </a>
+                {% endif %}
+                {% if contact.github %}
+                <a href="https://{{ contact.github | replace('https://', '') | replace('http://', '') }}" target="_blank" title="GitHub">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                </a>
+                {% endif %}
+                {% if contact.linkedin %}
+                <a href="https://{{ contact.linkedin | replace('https://', '') | replace('http://', '') }}" target="_blank" title="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="content-container">
+        
+        <!-- About Section -->
+        <section id="about" class="section scroll-spy">
+            <h2 class="section-title">About Me</h2>
+            <div class="card about-card">
+                <p class="about-text">{{ summary }}</p>
+                {% if contact.location %}
+                <div class="about-meta">
+                    <span class="meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                        {{ contact.location }}
+                    </span>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        {% if skills %}
+        <section id="skills" class="section scroll-spy">
+            <h2 class="section-title">Skills & Technologies</h2>
+            <div class="skills-grid">
+                {% for category in skills %}
+                <div class="card skill-card">
+                    <h3 class="skill-category-title">{{ category.category }}</h3>
+                    <div class="skill-tags">
+                        {% for item in category['items'] %}
+                        <span class="tag skill-tag">{{ item }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Experience Section -->
+        {% if experience %}
+        <section id="experience" class="section scroll-spy">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="timeline">
+                {% for exp in experience %}
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card timeline-card">
+                        <div class="timeline-header">
+                            <div>
+                                <h3 class="timeline-position">{{ exp.position }}</h3>
+                                <h4 class="timeline-company">{{ exp.company }}{% if exp.location %} <span class="location-text">| {{ exp.location }}</span>{% endif %}</h4>
+                            </div>
+                            <span class="timeline-date">{{ exp.start_date }} - {{ exp.end_date }}</span>
+                        </div>
+                        <ul class="timeline-desc">
+                            {% for bullet in exp.description %}
+                            <li>{{ bullet }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Projects Section -->
+        {% if projects %}
+        <section id="projects" class="section scroll-spy">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                {% for project in projects %}
+                <div class="card project-card">
+                    <div class="project-content">
+                        <h3 class="project-title">{{ project.title }}</h3>
+                        <p class="project-description">{{ project.description }}</p>
+                        <div class="project-tags">
+                            {% for tech in project.technologies %}
+                            <span class="tag project-tag">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% if project.link %}
+                    <div class="project-footer">
+                        <a href="https://{{ project.link | replace('https://', '') | replace('http://', '') }}" target="_blank" class="project-link">
+                            View Project
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Education & Achievements -->
+        {% if education or achievements %}
+        <section id="education-achievements" class="section scroll-spy">
+            <div class="split-grid">
+                {% if education %}
+                <div>
+                    <h2 class="section-title">Education</h2>
+                    <div class="education-list">
+                        {% for edu in education %}
+                        <div class="card education-card">
+                            <h3 class="education-degree">{{ edu.degree }} in {{ edu.major }}</h3>
+                            <h4 class="education-institution">{{ edu.institution }}</h4>
+                            <div class="education-footer">
+                                <span class="education-date">{{ edu.start_date }} - {{ edu.end_date }}</span>
+                                {% if edu.gpa %}
+                                <span class="education-gpa">GPA: {{ edu.gpa }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if achievements %}
+                <div>
+                    <h2 class="section-title">Achievements & Certifications</h2>
+                    <div class="card achievements-card">
+                        <ul class="achievements-list">
+                            {% for ach in achievements %}
+                            <li>
+                                <svg class="achievement-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H4v2h16v-2h-5c-.55 0-1-.45-1-1v-2.34"/><path d="M12 2a4 4 0 0 0-4 4v5a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4Z"/></svg>
+                                <span class="achievement-text">{{ ach }}</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Contact Section -->
+        <section id="contact" class="section scroll-spy">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="card contact-card">
+                <p class="contact-cta-text">Interested in working together or have any questions? Feel free to reach out using the contact options below.</p>
+                
+                <div class="contact-grid">
+                    {% if contact.email %}
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <a href="mailto:{{ contact.email }}" class="contact-link">{{ contact.email }}</a>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if contact.phone %}
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        </div>
+                        <div>
+                            <h4>Phone</h4>
+                            <span class="contact-val">{{ contact.phone }}</span>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if contact.linkedin %}
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                        </div>
+                        <div>
+                            <h4>LinkedIn</h4>
+                            <a href="https://{{ contact.linkedin | replace('https://', '') | replace('http://', '') }}" target="_blank" class="contact-link">{{ contact.linkedin }}</a>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if contact.github %}
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                        </div>
+                        <div>
+                            <h4>GitHub</h4>
+                            <a href="https://{{ contact.github | replace('https://', '') | replace('http://', '') }}" target="_blank" class="contact-link">{{ contact.github }}</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 {{ name }}. Built dynamically using Gemini API.</p>
+        </div>
+    </footer>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-theme');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+            const isDark = body.classList.contains('dark-theme');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+    </script>
+</body>
+</html>

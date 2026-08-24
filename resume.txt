@@ -1,0 +1,57 @@
+                  Krish Agrawal
+          Full-Stack Software Engineer
+   [EMAIL_ADDRESS] | +91 9368815620 | San Francisco, CA
+         github.com/krish090304 | linkedin.com/in/johndoe
+
+
+PROFESSIONAL SUMMARY
+Highly motivated Full-Stack Software Engineer with over 4 years of experience building responsive web applications and scalable backend APIs. Proficient in Python, JavaScript, React, and cloud architectures. Passionate about AI integrations, clean code practices, and solving complex algorithmic problems.
+
+
+TECHNICAL SKILLS
+- Languages: Python, JavaScript, TypeScript, HTML5, CSS3, SQL
+- Frameworks & Libraries: React, Node.js, Express, Flask, FastAPI, Django
+- Databases & Tools: PostgreSQL, MongoDB, Redis, Docker, Git, AWS (S3, EC2), Google Cloud
+
+
+WORK EXPERIENCE
+
+Software Engineer
+TechCorp Solutions | San Francisco, CA
+June 2022 - Present
+- Designed and built a microservices-based API using Python (FastAPI) and Docker, reducing API response times by 35%.
+- Led a team of 3 developers to migrate a legacy AngularJS frontend to React, improving web application performance by 50% and enhancing user experience.
+- Automated CI/CD pipelines using GitHub Actions, decreasing deployment times by 20 minutes per release.
+- Collaborated with product designers to implement pixel-perfect, accessible UI components adhering to WCAG 2.1 AA standards.
+
+Junior Software Developer
+WebDesign Co | San Jose, CA
+January 2020 - May 2022
+- Developed and maintained custom client websites using React, Node.js, and CSS Grid, delivering 15+ successful projects.
+- Integrated third-party REST APIs (Stripe, Twilio) into existing e-commerce systems, facilitating secure transaction flows.
+- Optimized database queries in PostgreSQL, improving dashboard rendering speed by 15%.
+
+
+EDUCATION
+
+Bachelor of Science in Computer Science
+University of California, Berkeley | 2016 - 2020
+- GPA: 3.8/4.0
+- Coursework: Data Structures, Algorithms, Web Development, Database Management Systems.
+
+
+PROJECTS
+
+DevSpace - Developer Portfolio Platform | React, Node.js, MongoDB
+- Developed a platform where developers can showcase portfolios and connect.
+- Implemented JWT authentication and secure image uploads using AWS S3.
+- Repo link: github.com/johndoe/devspace
+
+AI Resume Parser | Python, OpenAI API, Flask
+- Built a command-line tool that extracts key entities from resumes and converts them to JSON format.
+- Achieved 92% accuracy in extracting skills, contact details, and experience.
+
+
+ACHIEVEMENTS
+- Winner, TechCorp Hackathon 2023: Developed an AI-driven automated ticketing assistant.
+- AWS Certified Solutions Architect - Associate (2023)
