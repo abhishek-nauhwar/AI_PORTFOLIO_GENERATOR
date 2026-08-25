@@ -67,27 +67,83 @@ class PortfolioData(BaseModel):
 # --- Pipeline Functions ---
 
 def clean_text(text: str) -> str:
-    """Cleans excess spaces, double spaces, and redundant blank lines."""
-    # Replace multiple spaces with a single space
-    text = re.sub(r'[ \t]+', ' ', text)
-    # Replace three or more newlines with two newlines (to keep paragraph spacing but clean garbage)
-    text = re.sub(r'\n{3,}', '\n\n', text)
+    """Cleans and normalizes resume text before AI processing."""
+
+    # Normalize Windows/Mac line endings
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+
+    # Remove trailing spaces from every line
+    lines = [line.strip() for line in text.split("\n")]
+
+    # Remove unnecessary empty lines
+    cleaned_lines = []
+    previous_blank = False
+
+    for line in lines:
+        if not line:
+            if not previous_blank:
+                cleaned_lines.append("")
+            previous_blank = True
+        else:
+            cleaned_lines.append(line)
+            previous_blank = False
+
+    text = "\n".join(cleaned_lines)
+
+    # Replace multiple spaces/tabs inside text with one space
+    text = re.sub(r"[ \t]+", " ", text)
+
+    # Keep paragraph separation clean
+    text = re.sub(r"\n{3,}", "\n\n", text)
+
     return text.strip()
 
 def load_resume(filepath: str) -> str:
-    """Reads, validates, and cleans the resume.txt input file."""
+    """Reads, validates, and cleans the resume input file."""
+
     if not os.path.exists(filepath):
-        raise FileNotFoundError(f"Input file '{filepath}' is missing. Please create it and add your resume content.")
-        
-    with open(filepath, 'r', encoding='utf-8') as f:
-        content = f.read()
+        raise FileNotFoundError(
+            f"Input file '{filepath}' is missing. "
+            "Please create it and add your resume content."
+        )
+
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            content = f.read()
+    except UnicodeDecodeError:
+        raise ValueError(
+            f"Unable to read '{filepath}'. "
+            "Please make sure the file is saved using UTF-8 encoding."
+        )
+
+    if not content.strip():
+        raise ValueError(
+            f"The resume file '{filepath}' is empty."
+        )
+
+    original_length = len(content)
 
     cleaned = clean_text(content)
-    
-    # Validation: reject if empty or too short
+
+    # Basic content validation
     if len(cleaned) < 50:
-        raise ValueError(f"The content of '{filepath}' is empty or too short. A minimum of 50 characters is required.")
-        
+        raise ValueError(
+            f"The content of '{filepath}' is too short. "
+            "A minimum of 50 characters is required."
+        )
+
+    # Prevent meaningless repeated-character input
+    alphanumeric_chars = re.sub(r"[^a-zA-Z0-9]", "", cleaned)
+
+    if len(set(alphanumeric_chars.lower())) < 5:
+        raise ValueError(
+            "The resume content does not appear to contain meaningful text."
+        )
+
+    print(f"Original resume length: {original_length} characters")
+    print(f"Cleaned resume length: {len(cleaned)} characters")
+    print(f"Resume lines processed: {len(cleaned.splitlines())}")
+
     return cleaned
 
 def resolve_schema_refs(schema: dict) -> dict:
