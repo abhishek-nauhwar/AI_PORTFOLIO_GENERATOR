@@ -22,7 +22,7 @@ A Python application that converts plain text resumes into professional, respons
 ## Setup & Running
 
 ### Prerequisites
-- Python 3.10+
+- Python 3.10+,
 - A Google Gemini API Key (obtained from [Google AI Studio](https://aistudio.google.com/))
 
 ### Installation
@@ -102,3 +102,4 @@ To verify code correctness, the application was tested with the following inputs
 | Empty / Short Resume | Empty file or < 50 chars. | Graceful rejection message printed. | Pass |
 | Missing API Key | `GEMINI_API_KEY` empty/missing from `.env`. | Configurations error showing setup guidelines. | Pass |
 | Valid Run | Complete resume provided. | Compiles `portfolio.html` without warnings. | Pass |
+Contributed by Krish Agrawal
